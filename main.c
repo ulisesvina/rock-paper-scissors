@@ -4,13 +4,13 @@
 
 const char *getOption(int option) {
     switch(option) {
-        case 1:
+        case 0:
             return "rock";
         break;
-        case 2:
+        case 1:
             return "paper";
         break;
-        case 3:
+        case 2:
             return "scissors";
         break;
     }
@@ -18,8 +18,8 @@ const char *getOption(int option) {
 }
 
 int main(void) {
-    srand(time(NULL));
-    int machine = rand() % 2 + 1;
+    srand(time(NULL)); // Seed the random number generator with the system's current time_t value
+    int machine = rand() % 3; // Generated a random number between 0 and 2
     int human;
 
     if(machine > 2) {
@@ -29,11 +29,15 @@ int main(void) {
     printf("Write 1 for Rock, 2 for Paper and 3 for Scissors\n");
     scanf("%d", &human);
 
-    int result = machine - human;
+    human--; // This is so the computer can read the human input as 0, 1, 2
 
-    if(result < 0) {
-        result = 2;
-    }
+    int result = (3 + machine - human) % 3;
+
+    /* 
+        Explanation of the algorithm:
+
+        In rock-paper-scissors, each elements defeats the preceding one.
+    */
 
     switch(result) {
         case 0:
